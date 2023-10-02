@@ -3,6 +3,7 @@
 
 <head>
     <title>Create Disaster</title>
+    @vite('public/css/app.css')
 </head>
 
 <body>

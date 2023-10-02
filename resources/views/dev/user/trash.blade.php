@@ -6,10 +6,12 @@
 </head>
 
 <body>
-    <h1>User</h1>
-    <a href="{{ route('user.create') }}">
-        <h6>create</h6>
-    </a>
+    <h1>User Archive</h1>
+    <h2>
+        <a href="{{ route('dashboard') }}">Back
+        </a>
+    </h2>
+
     <table border="1">
         <thead>
             <tr>
@@ -49,7 +51,15 @@
                     <td>{{ $user->updated_at }}</td>
                     <td>{{ $user->deleted_at }}</td>
                     <td>{{ $user->post_id }}</td>
-                    <td><a href="{{ route('user.edit', $user->id) }}">Edit</a></td>
+                    <td>
+                        <form method="post" action="{{ route('user.restore') }}">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $user->id }}">
+                            <button type="submit">
+                                <h4>Restore User</h4>
+                            </button>
+                        </form><br>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

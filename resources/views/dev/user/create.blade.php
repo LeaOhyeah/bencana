@@ -2,11 +2,11 @@
 <html>
 
 <head>
-    <title>Form User</title>
+    <title>Create User</title>
 </head>
 
 <body>
-    <h1>Form User</h1>
+    <h1>Create User</h1>
 
     <br>
     <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
@@ -76,7 +76,9 @@
             @endforeach
         </select><br><br>
 
-        <button type="submit">===== Save =====</button>
+        <button type="submit">
+            <h4>Save Data</h4>
+        </button>
 
     </form>
 </body>

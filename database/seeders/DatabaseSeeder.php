@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\{User, Post, Disaster};
+use App\Models\{User, Post, Disaster, Category};
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,6 +42,12 @@ class DatabaseSeeder extends Seeder
             'role' => 3,
             'is_verified' => true,
             'post_id' => 1,
+        ]);
+
+        Category::factory()->create([
+            'created_by' => 1,
+            'edited_by' => 1,
+            'name' => 'DEFAULT',
         ]);
     }
 }

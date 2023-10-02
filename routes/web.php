@@ -19,13 +19,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/dashboard', function () {
     return view('udin');
-});
+})->name('dashboard');
 
+// manager table users as developer
 Route::resource('user', UserControllerResourece::class);
-Route::resource('dev-disaster', DisasterControllerResourece::class);
-Route::resource('dev-post', PostControllerResourece::class);
-Route::resource('dev-req', ReqControllerResourece::class);
-Route::resource('dev-aid', AidControllerResourece::class);
-Route::resource('dev-category', CategoryControllerResourece::class);
+Route::get('user/other/trash', [UserControllerResourece::class, 'trash'])->name('user.trash');
+Route::post('user/other/restore', [UserControllerResourece::class, 'restore'])->name('user.restore');
+Route::get('user/del-id-card/{id}', [UserControllerResourece::class, 'destroyIdCard'])->name('user.del-id-card');
+Route::get('user/del-pp/{id}', [UserControllerResourece::class, 'destroyPP'])->name('user.del-pp');
+
+// manager table disaster as developer
+Route::resource('disaster', DisasterControllerResourece::class);
+Route::get('disaster/other/trash', [DisasterControllerResourece::class, 'trash'])->name('disaster.trash');
+Route::post('disaster/other/restore', [DisasterControllerResourece::class, 'restore'])->name('disaster.restore');
+
+// manager table posts as developer
+Route::resource('post', PostControllerResourece::class);
+Route::get('post/other/trash', [PostControllerResourece::class, 'trash'])->name('post.trash');
+Route::post('post/other/restore', [PostControllerResourece::class, 'restore'])->name('post.restore');
+
+// manager table reqs as developer
+Route::resource('req', ReqControllerResourece::class);
+Route::get('req/other/trash', [ReqControllerResourece::class, 'trash'])->name('req.trash');
+Route::post('req/other/restore', [ReqControllerResourece::class, 'restore'])->name('req.restore');
+
+// manager table aids as developer
+Route::resource('aid', AidControllerResourece::class);
+Route::get('aid/other/trash', [AidControllerResourece::class, 'trash'])->name('aid.trash');
+Route::post('aid/other/restore', [AidControllerResourece::class, 'restore'])->name('aid.restore');
+
+// manager table categories as developer
+Route::resource('category', CategoryControllerResourece::class);
+Route::get('category/other/trash', [CategoryControllerResourece::class, 'trash'])->name('category.trash');
+Route::post('category/other/restore', [CategoryControllerResourece::class, 'restore'])->name('category.restore');

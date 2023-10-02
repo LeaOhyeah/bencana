@@ -117,9 +117,7 @@ class ReqControllerResourece extends Controller
         if (Req::where('id', $req->id)->update($validateData)) {
             return back();
         }
-        return "error";
-
-        
+        return "error";        
     }
 
     /**

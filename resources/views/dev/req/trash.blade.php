@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <h1>Post Archive</h1>
+    <h1>Req Archive</h1>
     <h2>
         <a href="{{ route('dashboard') }}">Back
         </a>
@@ -16,42 +16,44 @@
             <tr>
                 <th>ID</th>
                 <th>Code</th>
-                <th>Disaster ID</th>
+                <th>Post ID</th>
+                <th>Category ID</th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Photo</th>
-                <th>Lat</th>
-                <th>Long</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Is Completed</th>
                 <th>Created At</th>
                 <th>Updated At</th>
                 <th>Deleted At</th>
-                <th>Created by</th>
-                <th>Edited by</th>
+                <th>Created By</th>
+                <th>Edited By</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($posts as $post)
+            @foreach ($reqs as $req)
                 <tr>
-                    <td>{{ $post->id }}</td>
-                    <td>{{ $post->code }}</td>
-                    <td>{{ $post->disaster_id }}</td>
-                    <td>{{ $post->name }}</td>
-                    <td>{{ $post->description }}</td>
-                    <td>{{ $post->photo }}</td>
-                    <td>{{ $post->lat }}</td>
-                    <td>{{ $post->long }}</td>
-                    <td>{{ $post->created_at }}</td>
-                    <td>{{ $post->updated_at }}</td>
-                    <td>{{ $post->deleted_at }}</td>
-                    <td>{{ $post->created_by }}</td>
-                    <td>{{ $post->edited_by }}</td>
+                    <td>{{ $req->id }}</td>
+                    <td>{{ $req->code }}</td>
+                    <td>{{ $req->post_id }}</td>
+                    <td>{{ $req->category_id }}</td>
+                    <td>{{ $req->name }}</td>
+                    <td>{{ $req->description }}</td>
+                    <td>{{ $req->quantity }}</td>
+                    <td>{{ $req->unit }}</td>
+                    <td>{{ $req->is_completed }}</td>
+                    <td>{{ $req->created_at }}</td>
+                    <td>{{ $req->updated_at }}</td>
+                    <td>{{ $req->deleted_at }}</td>
+                    <td>{{ $req->created_by }}</td>
+                    <td>{{ $req->edited_by }}</td>
                     <td>
-                        <form method="post" action="{{ route('post.restore') }}">
+                        <form method="post" action="{{ route('req.restore') }}">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $post->id }}">
+                            <input type="hidden" name="id" value="{{ $req->id }}">
                             <button type="submit">
-                                <h4>Restore User</h4>
+                                <h4>Restore Req</h4>
                             </button>
                         </form><br>
                     </td>

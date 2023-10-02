@@ -46,6 +46,10 @@
                     <a href="{{ route('req.index') }}">
                         dev req
                     </a>
+                    <br>
+                    <a href="{{ route('req.trash') }}">
+                        trash req
+                    </a>
                 </h2>
                 <h2>
                     <a href="{{ route('aid.index') }}">

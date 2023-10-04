@@ -40,8 +40,8 @@
                     <td>{{ $disaster->closed_date }}</td>
                     <td>{{ $disaster->lat }}</td>
                     <td>{{ $disaster->long }}</td>
-                    <td>{{$disaster->created_by}}</td>
-                    <td>{{$disaster->edited_by}}</td>
+                    <td>{{ $disaster->created_by }}</td>
+                    <td>{{ $disaster->edited_by }}</td>
                     <td>
                         <form method="post" action="{{ route('disaster.restore') }}">
                             @csrf

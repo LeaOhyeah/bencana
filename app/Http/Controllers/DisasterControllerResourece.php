@@ -125,6 +125,9 @@ class DisasterControllerResourece extends Controller
         return "error";
     }
 
+    /**
+     * Display a listing of the trash 
+     */
     public function trash()
     {
         $data = [

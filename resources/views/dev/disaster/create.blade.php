@@ -2,12 +2,21 @@
 <html>
 
 <head>
+<<<<<<< HEAD
     <title>Add Disaster List</title>
     @vite('./public/css/style.css')
 </head>
 
 <body>
     <h1 class="text-2xl font-semibold text-cyan-500">Add Disaster List</h1>
+=======
+    <title>Create Disaster</title>
+    @vite('public/css/style.css')
+</head>
+
+<body>
+    <h1 class="">Create Disaster</h1>
+>>>>>>> f86eac4ba251b98a09dc1dd48fd22c79eb7aa83e
 
     <form method="POST" action="{{ route('disaster.store') }}">
         @csrf
@@ -17,7 +26,6 @@
         @enderror
         <input type="text" id="code" name="code" required><br>
         <br>
-
 
         <label for="name">Name:</label>
         @error('name')
@@ -72,7 +80,6 @@
             <h4>Save Data</h4>
         </button>
     </form>
-
 </body>
 
 </html>

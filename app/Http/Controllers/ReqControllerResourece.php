@@ -62,7 +62,6 @@ class ReqControllerResourece extends Controller
             return redirect()->route('req.index');
         }
         return "error";
-
     }
 
     /**

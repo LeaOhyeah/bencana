@@ -2,28 +2,28 @@
 <html>
 
 <head>
-    <title>Edit Req</title>
+    <title>Edit Aid</title>
 </head>
 
 <body>
-    <h1>Edit Req</h1>
+    <h1>Edit Aid</h1>
 
-    <form method="post" action="{{ route('req.destroy', $req->id) }}">
+    <form method="post" action="{{ route('aid.destroy', $aid->id) }}">
         @method('delete')
         @csrf
         <button type="submit">
-            <h4>Delete Req</h4>
+            <h4>Delete Aid</h4>
         </button>
     </form><br>
 
-    <form method="POST" action="{{ route('req.update', $req->id) }}">
+    <form method="POST" action="{{ route('aid.update', $aid->id) }}">
         @method('put')
         @csrf
         <label for="code">Code:</label>
         @error('code')
             {{ $message }}
         @enderror
-        <input value="{{ $req->code }}" type="text" id="code" name="code" required><br>
+        <input value="{{ $aid->code }}" type="text" id="code" name="code" required><br>
         <br>
 
         <label for="post_id">Post ID:</label>
@@ -33,7 +33,7 @@
         <select name="post_id" id="post_id">
             <option>Select Post</option>
             @foreach ($posts as $post)
-                @if ($req->post_id == $post->id)
+                @if ($aid->post_id == $post->id)
                     <option value="{{ $post->id }}" selected>{{ $post->name }}</option>
                 @else
                     <option value="{{ $post->id }}">{{ $post->name }}</option>
@@ -48,7 +48,22 @@
         <select name="category_id" id="category_id">
             <option>Select Category</option>
             @foreach ($categories as $category)
-                @if ($req->category_id == $category->id)
+                @if ($aid->category_id == $category->id)
+                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                @else
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endif
+            @endforeach
+        </select><br><br>
+
+        <label for="req_id">Req ID:</label>
+        @error('req_id')
+            {{ $message }}
+        @enderror
+        <select name="req_id" id="req_id">
+            <option>Select Req</option>
+            @foreach ($categories as $category)
+                @if ($aid->req_id == $category->id)
                     <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
                 @else
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -60,36 +75,36 @@
         @error('name')
             {{ $message }}
         @enderror
-        <input value="{{ $req->name }}" type="text" id="name" name="name" required><br>
+        <input value="{{ $aid->name }}" type="text" id="name" name="name" required><br>
         <br>
 
         <label for="description">Description</label>
         @error('description')
             {{ $message }}
         @enderror
-        <textarea name="description" id="description" cols="30" rows="10">{{ $req->description }}</textarea><br>
+        <textarea name="description" id="description" cols="30" rows="10">{{ $aid->description }}</textarea><br>
+        <br>
+
+        <label for="is_over">Is Over:</label>
+        @error('is_over')
+            {{ $message }}
+        @enderror
+        <input value="{{ $aid->is_over }}" type="checkbox" id="is_over" name="is_over"
+            {{ $aid->is_over ? 'checked' : '' }}><br>
         <br>
 
         <label for="quantity">Quantity:</label>
         @error('quantity')
             {{ $message }}
         @enderror
-        <input value="{{ $req->quantity }}" type="number" id="quantity" name="quantity" required><br>
+        <input value="{{ $aid->quantity }}" type="number" id="quantity" name="quantity" required><br>
         <br>
 
         <label for="unit">Unit:</label>
         @error('unit')
             {{ $message }}
         @enderror
-        <input value="{{ $req->unit }}" type="text" id="unit" name="unit" required><br>
-        <br>
-
-        <label for="is_completed">Completed:</label>
-        @error('is_completed')
-            {{ $message }}
-        @enderror
-        <input value="{{ $req->is_completed }}" type="checkbox" id="is_completed" name="is_completed"
-            {{ $req->is_completed ? 'checked' : '' }}><br>
+        <input value="{{ $aid->unit }}" type="text" id="unit" name="unit" required><br>
         <br>
 
         <button type="submit">

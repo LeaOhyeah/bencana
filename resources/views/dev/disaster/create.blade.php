@@ -3,11 +3,11 @@
 
 <head>
     <title>Create Disaster</title>
-    @vite('public/css/app.css')
+    @vite('public/css/style.css')
 </head>
 
 <body>
-    <h1>Create Disaster</h1>
+    <h1 class="">Create Disaster</h1>
 
     <form method="POST" action="{{ route('disaster.store') }}">
         @csrf
@@ -17,7 +17,6 @@
         @enderror
         <input type="text" id="code" name="code" required><br>
         <br>
-
 
         <label for="name">Name:</label>
         @error('name')
@@ -72,7 +71,6 @@
             <h4>Save Data</h4>
         </button>
     </form>
-
 </body>
 
 </html>

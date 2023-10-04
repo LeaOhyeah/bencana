@@ -55,10 +55,18 @@
                     <a href="{{ route('aid.index') }}">
                         dev aid
                     </a>
+                    <br>
+                    <a href="{{ route('aid.trash') }}">
+                        trash aid
+                    </a>
                 </h2>
                 <h2>
                     <a href="{{ route('category.index') }}">
                         dev category
+                    </a>
+                    <br>
+                    <a href="{{ route('category.trash') }}">
+                        trash category
                     </a>
                 </h2>
             </td>

@@ -2,12 +2,12 @@
 <html>
 
 <head>
-    <title>Create Disaster</title>
-    @vite('public/css/app.css')
+    <title>Add Disaster List</title>
+    @vite('./public/css/style.css')
 </head>
 
 <body>
-    <h1>Create Disaster</h1>
+    <h1 class="text-2xl font-semibold text-cyan-500">Add Disaster List</h1>
 
     <form method="POST" action="{{ route('disaster.store') }}">
         @csrf

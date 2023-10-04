@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', function () {
     return view('udin');
 })->name('dashboard');
+Route::get('/home', function () {
+    return view('homepage.home');
+})->name('home');
 
 // manager table users as developer
 Route::resource('user', UserControllerResourece::class);

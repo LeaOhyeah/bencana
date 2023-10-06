@@ -7,9 +7,20 @@ export default {
 
   ],
   theme: {
+
+    colors: {
+      'main' : '#ffffff',
+      'text2': '#040316',
+      'background2': '#f5f5f5',
+      'primary2': '#f5f5db',
+      'secondary2': '#5a362a',
+      'accent2': '#f75c02',
+     },
+     
+
     container: {
       center: true,
-      padding: '16px',
+      padding: '20px',
     },
     extend: {
       fontSize: {
@@ -35,9 +46,12 @@ export default {
   },
   
 
-  plugins: [require('@tailwindcss/typography'), require ("daisyui"), require('@tailwindcss/forms'),],
+  plugins: [['prettier-plugin-tailwindcss'], require('@tailwindcss/typography'), require ("daisyui"), require('@tailwindcss/forms'),],
+
     daisyui: {
-    themes: [],
-  },
+    themes: [
+      
+    ],
+    },
 }
 

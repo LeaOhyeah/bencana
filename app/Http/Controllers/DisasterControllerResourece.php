@@ -38,8 +38,8 @@ class DisasterControllerResourece extends Controller
             'start_date' => 'date',
             'end_date' => 'date|nullable',
             'closed_date' => 'date|nullable',
-            'lat' => '',
-            'long' => '',
+            'lat' => 'required',
+            'long' => 'required',
         ], [
             'code.regex' => 'error regex code',
             'code.unique' => 'error unique code',
@@ -48,6 +48,8 @@ class DisasterControllerResourece extends Controller
             'start_date.date' => 'error start date',
             'end_date.date' => 'error end date',
             'closed_date.date' => 'error closed date',
+            'lat.required' => 'error required latitude',
+            'long.required' => 'error required longitude',
         ]);
         $validateData['created_by'] = 1;
         $validateData['edited_by'] = 1;

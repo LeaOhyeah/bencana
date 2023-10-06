@@ -44,10 +44,10 @@ class DatabaseSeeder extends Seeder
             'post_id' => 1,
         ]);
 
-        Category::factory()->create([
-            'created_by' => 1,
-            'edited_by' => 1,
-            'name' => 'DEFAULT',
-        ]);
+        // Category::factory()->create([
+        //     'created_by' => 1,
+        //     'edited_by' => 1,
+        //     'name' => 'DEFAULT',
+        // ]);
     }
 }

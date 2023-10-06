@@ -6,9 +6,14 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <style>
         #map {
-            height: 500px;
-            width: 600px;
+            height: 400px;
+            width: 400px;
             /* margin-left: 2cm; */
+        }
+        @media (min-width: 1024px) {
+          #map {
+        width: 600px !important; /* Lebar untuk layar desktop */
+          }
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
@@ -16,7 +21,6 @@
 
         <!-- Main -->
           @section('container')
-          <div class="container bg-background2">
             <h1 class="text-3xl font-semibold pt-3 items-center">Create Disaster</h1>
             <div class="text-sm breadcrumbs">
               <ul>
@@ -57,36 +61,41 @@
                 <br>
                 </label>
                 <br>
-              
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <label class="block" for="start_date"><span>Start Date</span>
-                 @error('start_date')
-                {{ $message }}
-                @enderror
-                <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="date" id="start_date" name="start_date"  required>
-                </label>
-              
-                
-      
-                <label class="block" for="end_date"><span>End Date</span>
-                 @error('end_date')
-                {{ $message }}
-                @enderror
-                <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="date" id="end_date" name="end_date">
-                </label>
-                
-    
-                <label class="block" for="closed_date"><span>Closed Date</span>
-                @error('closed_date')
-                {{ $message }}
-                @enderror
-                 <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="date" id="closed_date" name="closed_date">
-                </label>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 ">
+                               
+                <div class="grid gird-cols-1 md:grid-2">
+                  <label class="block" for="start_date"><span>Start Date</span>
+                    @error('start_date')
+                   {{ $message }}
+                   @enderror
+                   <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="date" id="start_date" name="start_date"  required>
+                   </label>
+                   
+         
+                   <label class="block" for="end_date"><span>End Date</span>
+                    @error('end_date')
+                   {{ $message }}
+                   @enderror
+                   <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="date" id="end_date" name="end_date">
+                   </label>
+                   
+       
+                   <label class="block" for="closed_date"><span>Closed Date</span>
+                   @error('closed_date')
+                   {{ $message }}
+                   @enderror
+                    <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="date" id="closed_date" name="closed_date">
+                   </label>
                 </div>
 
-                <div id="map"></div>
+                <div class="grid gird-cols-2 md:grid-2">  
+                  <div id="map" class="w-2/3 mt-5"></div>
+                  <button id="myLocation" type="button">Use My Location</button>
+                </div>
+
+                </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                 {{-- <label class="block" for="lat"><span>Lat</span> --}}
                 @error('lat')
                 {{ $message }}
@@ -103,9 +112,6 @@
                 <br>
                 </label>
 
-                <button id="myLocation" type="button">Use My Location</button>
-
-               </div>
                 <button type="submit" class="btn bg-accent2 hover:bg-accent2/80 font-semibold text-main mb-8">
                 Save Data
                 </button>
@@ -181,9 +187,6 @@
                   
               </ul>
             </div>
-            </div>
-            
-
           </div>
         
         @endsection

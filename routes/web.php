@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\UserControllerResourece;
 use App\Http\Controllers\DisasterControllerResourece;
 use App\Http\Controllers\PostControllerResourece;
@@ -22,9 +23,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', function () {
     return view('udin');
 })->name('dashboard');
-Route::get('/home', function () {
-    return view('homepage.home');
-})->name('home');
+
+// Route::get('/home', function () {
+//     return view('homepage.home');
+// })->name('home');
+
+// homepage
+Route::get('/home', [HomepageController::class, 'index'])->name('home');
+Route::get('/test', [HomepageController::class, 'test'])->name('test');
+Route::get('/geojson', [HomepageController::class, 'geojson'])->name('geojson');
+Route::get('/getdata', [HomepageController::class, 'getData'])->name('getdata');
 
 // manager table users as developer
 Route::resource('user', UserControllerResourece::class);

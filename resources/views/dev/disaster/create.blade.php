@@ -83,23 +83,23 @@
                  <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="date" id="closed_date" name="closed_date">
                 </label>
                 </div>
+
+                <div id="map"></div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                <label class="block" for="lat"><span>Lat</span>
+                {{-- <label class="block" for="lat"><span>Lat</span> --}}
                 @error('lat')
                 {{ $message }}
                 @enderror
-                <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="text" id="lat" name="lat" placeholder="Enter Latitude" required><br>
+                <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="hidden" id="lat" name="lat" placeholder="Enter Latitude" required><br>
                 <br>
                 </label>
-
-                <div id="map"></div>
     
-                <label class="block" for="long"><span>Long</span>
+                {{-- <label class="block" for="long"><span>Long</span> --}}
                 @error('long')
                 {{ $message }}
                 @enderror
-                <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="text" id="long" name="long" placeholder="Enter Longitude" required><br>
+                <input class="mt-1 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" type="hidden" id="long" name="long" placeholder="Enter Longitude" required><br>
                 <br>
                 </label>
 

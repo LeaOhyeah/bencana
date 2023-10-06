@@ -4,6 +4,7 @@
 <head>
     <title>Create Disaster</title>
     @vite('public/css/style.css')
+    @yield('css')
 </head>
 
 <body>
@@ -123,5 +124,6 @@
         </div>
   
 </body>
+@stack('js')
 
 </html>

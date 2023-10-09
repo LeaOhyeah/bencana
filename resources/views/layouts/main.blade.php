@@ -1,29 +1,12 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Create Disaster</title>
-    @vite('public/css/style.css')
-    @yield('css')
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE | @yield('title')</title>
+    
 </head>
-
 <body>
-    <div class="drawer lg:drawer-open">
-        <input id="my-drawer-3" type="checkbox" class="drawer-toggle"/> 
-        <div class="drawer-content flex flex-col">
-          
-          @include('layouts.navbar')
-
-        <!-- Main -->
-        <div class="container bg-background2">
-            @yield('container')
-        </div>
-        <!-- End of main -->
-
-        @include('layouts.sidebar')
-        </div>
-  
+    
 </body>
-@stack('js')
-
 </html>

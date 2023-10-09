@@ -20,8 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('req_id');
             $table->string('name');
+            $table->date('recived_date');
+            $table->date('distributed_date');
             $table->text('description')->nullable();
-            $table->boolean('is_over')->default(false);
             $table->integer('quantity');
             $table->string('unit');
             $table->timestamps();

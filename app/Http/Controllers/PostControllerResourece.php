@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Disaster;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
+/**
+ * Summary of PostControllerResourece
+ */
 class PostControllerResourece extends Controller
 {
     /**
@@ -43,29 +47,33 @@ class PostControllerResourece extends Controller
             'name' => 'string',
             'description' => 'max:500',
             'photo' => 'image|file|max:5000',
-            'lat' => '',
-            'long' => '',
+            'lat' => 'required',
+            'long' => 'required',
         ], [
-            'code.regex' => 'error regex code',
-            'code.unique' => 'error unique code',
-            'disaster_id.integer' => 'error disaster id',
-            'name.string' => 'error string name',
-            'description.max' => 'error max description',
-            'photo.image' => 'error image photo',
-            'photo.file' => 'error file photo',
-            'photo.max' => 'error max photo',
+            'code.regex' => 'Kode hanya mengandung karakter A-Z, 0-9 -',
+            'code.unique' => 'Kode sudah ada',
+            'disaster_id.integer' => 'Bencana tidak valid',
+            'name.string' => 'Nama harus string',
+            'description.max' => 'Deskirpsi tidak lebih dari 500 karakter',
+            'photo.image' => 'Format Foto tidak valid',
+            'photo.file' => 'Foto tidak valid',
+            'photo.max' => 'Foto tidak lebih dari 5000kb',
+            'lat.required' => 'Garis lintang tidak valid',
+            'long.required' => 'Garis lintang tidak valid',
         ]);
         $validateData['created_by'] = 1;
         $validateData['edited_by'] = 1;
+        // $validateData['created_by'] = Auth::user()->id;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if ($request->file('photo')) {
             $validateData['photo'] = $request->file('photo')->store('post-images');
         }
 
         if (Post::create($validateData)) {
-            return redirect()->route('post.index');
+            return redirect()->route('post.index')->with('success', 'Data berhasil ditambahkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -99,19 +107,22 @@ class PostControllerResourece extends Controller
             'name' => 'string',
             'description' => 'max:500',
             'photo' => 'image|file|max:5000',
-            'lat' => '',
-            'long' => '',
+            'lat' => 'required',
+            'long' => 'required',
         ], [
-            'code.regex' => 'error regex code',
-            'code.unique' => 'error unique code',
-            'disaster_id.integer' => 'error disaster id',
-            'name.string' => 'error string name',
-            'description.max' => 'error max description',
-            'photo.image' => 'error image photo',
-            'photo.file' => 'error file photo',
-            'photo.max' => 'error max photo',
+            'code.regex' => 'Kode hanya mengandung karakter A-Z, 0-9 -',
+            'code.unique' => 'Kode sudah ada',
+            'disaster_id.integer' => 'Bencana tidak valid',
+            'name.string' => 'Nama harus string',
+            'description.max' => 'Deskirpsi tidak lebih dari 500 karakter',
+            'photo.image' => 'Format Foto tidak valid',
+            'photo.file' => 'Foto tidak valid',
+            'photo.max' => 'Foto tidak lebih dari 5000kb',
+            'lat.required' => 'Garis lintang tidak valid',
+            'long.required' => 'Garis lintang tidak valid',
         ]);
         $validateData['edited_by'] = 1;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if ($request->file('photo')) {
             if ($request['old_photo']) {
@@ -121,9 +132,9 @@ class PostControllerResourece extends Controller
         }
 
         if (Post::where('id', $post->id)->update($validateData)) {
-            return back();
+            return back()->with('success', 'Data berhasil diperbarui!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -132,13 +143,14 @@ class PostControllerResourece extends Controller
     public function destroy($id)
     {
         $data = [
+            // 'edited_by' => Auth::user()->id,
             'edited_by' => 1,
         ];
         Post::where('id', $id)->update($data);
         if (Post::destroy($id)) {
-            return redirect()->route('post.index');
+            return redirect()->route('post.index')->with('success', 'Data berhasil dihapus');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -158,13 +170,14 @@ class PostControllerResourece extends Controller
     public function restore(Request $request)
     {
         $data = [
+            // 'edited_by' => Auth::user()->id,
             'edited_by' => 1,
         ];
         $post = Post::withTrashed()->find($request->id);
         $post->update($data);
         if ($post->restore()) {
-            return redirect()->route('post.trash');
+            return redirect()->route('post.trash')->with('success', 'Data berhasil dipulihkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 }

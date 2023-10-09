@@ -27,7 +27,7 @@
         @error('password')
             {{ $message }}
         @enderror
-        <input type="password" id="password" name="password"><br><br>
+        <input type="text" id="password" name="password" required><br><br>
 
         <label for="role">Role:</label>
         @error('role')

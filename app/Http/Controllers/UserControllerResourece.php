@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
-use App\Models\{Post};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 
+/**
+ * Summary of UserControllerResourece
+ */
 class UserControllerResourece extends Controller
 {
     /**
@@ -40,32 +44,36 @@ class UserControllerResourece extends Controller
     {
         $request['is_verified'] = $request->has('is_verified') ? true : false;
         $request['is_blocked'] = $request->has('is_blocked') ? true : false;
+        $request['password'] = trim($request['password']);
         $validateData = $request->validate([
             'full_name' => 'string',
             'email' => 'email|unique:users,email',
-            'password' => 'regex:/^[A-Za-z0-9\-_]+$/',
+            'password' => 'regex:/^[A-Za-z0-9\-_]+$/|required',
             'role' => 'integer|between:1,3',
             'photo_profile' => 'image|file|max:5000',
-            'identity_card' => 'max:255',
+            'identity_card' => 'image|file|max:5000',
             'is_verified' => 'boolean',
             'is_blocked' => 'boolean',
             'remember_token' => 'string|nullable',
             'post_id' => 'integer',
         ], [
-            'full_name.string' => 'error string full name',
-            'email.email' => 'error email email',
-            'email.unique' => 'error unique email',
-            'password.regex' => 'error regex password',
-            'role.integer' => 'error integer role',
-            'role.between' => 'error between role',
-            'photo_profile.image' => 'error image photo profile',
-            'photo_profile.file' => 'error file photo profile',
-            'photo_profile.max' => 'error max photo profile',
-            'identity_card.max' => 'error max identity card',
-            'is_verified.boolean' => 'error boolean verified',
-            'is_blocked.boolean' => 'error boolean blocked',
-            'remember_token.string' => 'error token',
-            'post_id.integer' => 'error integer post id',
+            'full_name.string' => 'Nama lengkap harus string',
+            'email.email' => 'Email tidak valid',
+            'email.unique' => 'Email sudah digunakan',
+            'password.regex' => 'Password hanya mengandung karakter A-Z, a-z, 0-9',
+            'password.required' => 'Password tidak boleh kosong',
+            'role.integer' => 'Peran tidak valid',
+            'role.between' => 'Peran tersebut tidak valid',
+            'photo_profile.image' => 'Format foto profil tidak valid',
+            'photo_profile.file' => 'Foto profil tidak valid',
+            'photo_profile.max' => 'Foto profil tidak lebih dari 5000kb',
+            'identity_card.image' => 'Format kartu identitas tidak valid',
+            'identity_card.file' => 'Kartu identitas tidak valid',
+            'identity_card.max' => 'Kartu identitas tidak lebih dari 5000kb',
+            'is_verified.boolean' => 'Verifikasi tidak valid',
+            'is_blocked.boolean' => 'Blokir tidak valid',
+            'remember_token.string' => 'Token harus string',
+            'post_id.integer' => 'Post tidak valid',
         ]);
         $validateData['password'] = Hash::make($validateData['password']);
 
@@ -78,10 +86,9 @@ class UserControllerResourece extends Controller
         }
 
         if (User::create($validateData)) {
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success', 'Data berhasil ditambahkan!');
         }
-        return "error";
-
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -111,34 +118,38 @@ class UserControllerResourece extends Controller
     {
         $request['is_verified'] = $request->has('is_verified') ? true : false;
         $request['is_blocked'] = $request->has('is_blocked') ? true : false;
+        $request['password'] = trim($request['password']);
         $validateData = $request->validate([
             'full_name' => 'string',
             'email' => 'email|unique:users,email,' . $user->id,
-            // 'password' => 'regex:/^[A-Za-z0-9\-_]+$/',
+            'password' => 'regex:/^[A-Za-z0-9\-_]+$/|required',
             'role' => 'integer|between:1,3',
             'photo_profile' => 'image|file|max:5000',
-            'identity_card' => 'max:255',
+            'identity_card' => 'image|file|max:5000',
             'is_verified' => 'boolean',
             'is_blocked' => 'boolean',
             'remember_token' => 'string|nullable',
             'post_id' => 'integer',
         ], [
-            'full_name.string' => 'error string full name',
-            'email.email' => 'error email email',
-            'email.unique' => 'error unique email',
-            // 'password.regex' => 'error regex password',
-            'role.integer' => 'error integer role',
-            'role.between' => 'error between role',
-            'photo_profile.image' => 'error image photo profile',
-            'photo_profile.file' => 'error file photo profile',
-            'photo_profile.max' => 'error max photo profile',
-            'identity_card.max' => 'error max identity card',
-            'is_verified.boolean' => 'error boolean verified',
-            'is_blocked.boolean' => 'error boolean blocked',
-            'remember_token.string' => 'error token',
-            'post_id.integer' => 'error integer post id',
+            'full_name.string' => 'Nama lengkap harus string',
+            'email.email' => 'Email tidak valid',
+            'email.unique' => 'Email sudah digunakan',
+            'password.regex' => 'Password hanya mengandung karakter A-Z, a-z, 0-9',
+            'password.required' => 'Password tidak boleh kosong',
+            'role.integer' => 'Peran tidak valid',
+            'role.between' => 'Peran tersebut tidak valid',
+            'photo_profile.image' => 'Format foto profil tidak valid',
+            'photo_profile.file' => 'Foto profil tidak valid',
+            'photo_profile.max' => 'Foto profil tidak lebih dari 5000kb',
+            'identity_card.image' => 'Format kartu identitas tidak valid',
+            'identity_card.file' => 'Kartu identitas tidak valid',
+            'identity_card.max' => 'Kartu identitas tidak lebih dari 5000kb',
+            'is_verified.boolean' => 'Verifikasi tidak valid',
+            'is_blocked.boolean' => 'Blokir tidak valid',
+            'remember_token.string' => 'Token harus string',
+            'post_id.integer' => 'Post tidak valid',
         ]);
-        // $validateData['password'] = Hash::make($validateData['password']);
+        $validateData['password'] = Hash::make($validateData['password']);
 
         if ($request->file('photo_profile')) {
             if ($request['old_photo_profile']) {
@@ -155,10 +166,9 @@ class UserControllerResourece extends Controller
         }
 
         if (User::where('id', $user->id)->update($validateData)) {
-            return back();
+            return back()->with('success', 'Data berhasil diperbarui!');
         }
-        return "error";
-
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -167,9 +177,9 @@ class UserControllerResourece extends Controller
     public function destroy($id)
     {
         if (User::destroy($id)) {
-            return redirect()->route('user.index');
+            return redirect()->route('user.index')->with('success', 'Data berhasil dihapus');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -190,9 +200,9 @@ class UserControllerResourece extends Controller
     {
         $user = User::withTrashed()->find($request->id);
         if ($user->restore()) {
-            return redirect()->route('user.trash');
+            return redirect()->route('user.trash')->with('success', 'Data berhasil dipulihkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -205,7 +215,7 @@ class UserControllerResourece extends Controller
         User::where('id', $user->id)->update([
             'identity_card' => null,
         ]);
-        return back();
+        return back()->with('success', 'Kartu identitas berhasil dihapus!');
     }
 
     /**
@@ -218,6 +228,6 @@ class UserControllerResourece extends Controller
         User::where('id', $user->id)->update([
             'photo_profile' => null,
         ]);
-        return back();
+        return back()->with('success', 'Foto Profil berhasil dihapus!');
     }
 }

@@ -20,16 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function () {
-    return view('udin');
-})->name('dashboard');
-
 // Route::get('/home', function () {
 //     return view('homepage.home');
 // })->name('home');
 
 // homepage
+Route::get('/dashboard', [HomepageController::class, 'dashboard'])->name('dashboard');
 Route::get('/home', [HomepageController::class, 'index'])->name('home');
+
+// test leaflet
 Route::get('/test', [HomepageController::class, 'test'])->name('test');
 Route::get('/geojson', [HomepageController::class, 'geojson'])->name('geojson');
 Route::get('/getdata', [HomepageController::class, 'getData'])->name('getdata');

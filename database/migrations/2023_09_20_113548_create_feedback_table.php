@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
+            $table->string('email');
+            $table->string('subject');
             $table->text('message');
+            $table->boolean('is_replied')->default(false);
+            $table->string('link')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

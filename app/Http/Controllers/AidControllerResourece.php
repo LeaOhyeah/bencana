@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aid;
-use App\Models\Req;
-use App\Models\Post;
 use App\Models\Category;
+use App\Models\Post;
+use App\Models\Req;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * Summary of AidControllerResourece
+ */
 class AidControllerResourece extends Controller
 {
     /**
@@ -51,24 +55,26 @@ class AidControllerResourece extends Controller
             'quantity' => 'integer',
             'unit' => 'string',
         ], [
-            'code.regex' => 'error regex code',
-            'code.unique' => 'error unique code',
-            'post_id.integer' => 'error post id',
-            'category_id.integer' => 'error category id',
-            'req_id.integer' => 'error req id',
-            'name.string' => 'error string name',
-            'description.max' => 'error max description',
-            'is_over.boolean' => 'error is over boolean',
-            'quantity.integer' => 'error quantity integer',
-            'unit.string' => 'error unit string',
+            'code.regex' => 'Kode hanya mengandung karakter A-Z, 0-9 -',
+            'code.unique' => 'Kode sudah ada',
+            'post_id.integer' => 'Post tidak valid',
+            'category_id.integer' => 'Kategori tidak valid',
+            'req_id.integer' => 'Permintaan tidak valid',
+            'name.string' => 'Nama harus string',
+            'description.max' => 'Deskirpsi tidak lebih dari 500 karakter',
+            'is_over.boolean' => 'Kelebihan tidak valid',
+            'quantity.integer' => 'Kuantitas tidak valid',
+            'unit.string' => 'Unit harus string',
         ]);
         $validateData['created_by'] = 1;
         $validateData['edited_by'] = 1;
+        // $validateData['created_by'] = Auth::user()->id;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if (Aid::create($validateData)) {
-            return redirect()->route('aid.index');
+            return redirect()->route('aid.index')->with('success', 'Data berhasil ditambahkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -100,7 +106,7 @@ class AidControllerResourece extends Controller
     {
         $request['is_over'] = $request->has('is_over') ? true : false;
         $validateData = $request->validate([
-            'code' => 'regex:/^[A-Z0-9\-]+$/|unique:aids,code,' .$aid->id,
+            'code' => 'regex:/^[A-Z0-9\-]+$/|unique:aids,code,' . $aid->id,
             'post_id' => 'integer',
             'category_id' => 'integer',
             'req_id ' => 'integer',
@@ -110,23 +116,24 @@ class AidControllerResourece extends Controller
             'quantity' => 'integer',
             'unit' => 'string',
         ], [
-            'code.regex' => 'error regex code',
-            'code.unique' => 'error unique code',
-            'post_id.integer' => 'error post id',
-            'category_id.integer' => 'error category id',
-            'req_id.integer' => 'error req id',
-            'name.string' => 'error string name',
-            'description.max' => 'error max description',
-            'is_over.boolean' => 'error is over boolean',
-            'quantity.integer' => 'error quantity integer',
-            'unit.string' => 'error unit string',
+            'code.regex' => 'Kode hanya mengandung karakter A-Z, 0-9 -',
+            'code.unique' => 'Kode sudah ada',
+            'post_id.integer' => 'Post tidak valid',
+            'category_id.integer' => 'Kategori tidak valid',
+            'req_id.integer' => 'Permintaan tidak valid',
+            'name.string' => 'Nama harus string',
+            'description.max' => 'Deskirpsi tidak lebih dari 500 karakter',
+            'is_over.boolean' => 'Kelebihan tidak valid',
+            'quantity.integer' => 'Kuantitas tidak valid',
+            'unit.string' => 'Unit harus string',
         ]);
         $validateData['edited_by'] = 1;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if (Aid::where('id', $aid->id)->update($validateData)) {
-            return back();
+            return back()->with('success', 'Data berhasil diperbarui!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -136,12 +143,13 @@ class AidControllerResourece extends Controller
     {
         $data = [
             'edited_by' => 1,
+            // 'edited_by' => Auth::user()->id,
         ];
         Aid::where('id', $id)->update($data);
         if (Aid::destroy($id)) {
-            return redirect()->route('aid.index');
+            return redirect()->route('aid.index')->with('success', 'Data berhasil dihapus');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -162,12 +170,13 @@ class AidControllerResourece extends Controller
     {
         $data = [
             'edited_by' => 1,
+            // 'edited_by' => Auth::user()->id,
         ];
         $aid = Aid::withTrashed()->find($request->id);
         $aid->update($data);
         if ($aid->restore()) {
-            return redirect()->route('aid.trash');
+            return redirect()->route('aid.trash')->with('success', 'Data berhasil dipulihkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 }

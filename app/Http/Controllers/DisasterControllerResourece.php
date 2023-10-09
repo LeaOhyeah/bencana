@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Disaster;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * Summary of DisasterControllerResourece
+ */
 class DisasterControllerResourece extends Controller
 {
     /**
@@ -13,8 +17,10 @@ class DisasterControllerResourece extends Controller
     public function index()
     {
         $data = [
-            'disasters' => Disaster::orderBy('created_at', 'ASC')->get(),
+            'disasters' => Disaster::with(['edited_log', 'created_log'])->orderBy('created_at', 'ASC')->get(),
         ];
+        $test = Disaster::find(1);
+        dd($test->created_at_formated());
         return view('dev.disaster.index', $data);
     }
 
@@ -41,24 +47,25 @@ class DisasterControllerResourece extends Controller
             'lat' => 'required',
             'long' => 'required',
         ], [
-            'code.regex' => 'error regex code',
-            'code.unique' => 'error unique code',
-            'name.string' => 'error string name',
-            'description.max' => 'error max description',
-            'start_date.date' => 'error start date',
-            'end_date.date' => 'error end date',
-            'closed_date.date' => 'error closed date',
-            'lat.required' => 'error required latitude',
-            'long.required' => 'error required longitude',
+            'code.regex' => 'Kode hanya mengandung karakter A-Z, 0-9 -',
+            'code.unique' => 'Kode sudah ada',
+            'name.string' => 'Nama harus string',
+            'description.max' => 'Deskirpsi tidak lebih dari 500 karakter',
+            'start_date.date' => 'Tanggal dimulai tidak valid',
+            'end_date.date' => 'Tanggal selesai tidak valid',
+            'closed_date.date' => 'Tanggal ditutup tidak valid',
+            'lat.required' => 'Garis lintang tidak valid',
+            'long.required' => 'Garis bujur tidak valid',
         ]);
         $validateData['created_by'] = 1;
         $validateData['edited_by'] = 1;
+        // $validateData['created_by'] = Auth::user()->id;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if (Disaster::create($validateData)) {
-            return redirect()->route('disaster.index');
+            return redirect()->route('disaster.index')->with('success', 'Data berhasil ditambahkan!');
         }
-        return "error";
-
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -92,24 +99,26 @@ class DisasterControllerResourece extends Controller
             'start_date' => 'date',
             'end_date' => 'date|nullable',
             'closed_date' => 'date|nullable',
-            'lat' => '',
-            'long' => '',
+            'lat' => 'required',
+            'long' => 'required',
         ], [
-            'code.regex' => 'error regex code',
-            'code.unique' => 'error unique code',
-            'name.string' => 'error string name',
-            'description.max' => 'error max description',
-            'start_date.date' => 'error start date',
-            'end_date.date' => 'error end date',
-            'closed_date.date' => 'error closed date',
+            'code.regex' => 'Kode hanya mengandung karakter A-Z, 0-9 -',
+            'code.unique' => 'Kode sudah ada',
+            'name.string' => 'Nama harus string',
+            'description.max' => 'Deskirpsi tidak lebih dari 500 karakter',
+            'start_date.date' => 'Tanggal dimulai tidak valid',
+            'end_date.date' => 'Tanggal selesai tidak valid',
+            'closed_date.date' => 'Tanggal ditutup tidak valid',
+            'lat.required' => 'Garis lintang tidak valid',
+            'long.required' => 'Garis bujur tidak valid',
         ]);
         $validateData['edited_by'] = 1;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if (Disaster::where('id', $disaster->id)->update($validateData)) {
-            return back();
+            return back()->with('success', 'Data berhasil diperbarui!');
         }
-        return "error";
-
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -119,12 +128,13 @@ class DisasterControllerResourece extends Controller
     {
         $data =[
             'edited_by' => 1,
+            // 'edited_by' => Auth::user()->id,
         ];
         Disaster::where('id', $id)->update($data);
         if (Disaster::destroy($id)) {
-            return redirect()->route('disaster.index');
+            return redirect()->route('disaster.index')->with('success', 'Data berhasil dihapus');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -145,12 +155,13 @@ class DisasterControllerResourece extends Controller
     {
         $data = [
             'edited_by' => 1,
+            // 'edited_by' => Auth::user()->id,
         ];
         $disaster = Disaster::withTrashed()->find($request->id);
         $disaster->update($data);
         if ($disaster->restore()) {
-            return redirect()->route('disaster.trash');
+            return redirect()->route('disaster.trash')->with('success', 'Data berhasil dipulihkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 }

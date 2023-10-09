@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+/**
+ * Summary of CategoryControllerResourece
+ */
 class CategoryControllerResourece extends Controller
 {
     /**
@@ -34,16 +38,18 @@ class CategoryControllerResourece extends Controller
         $validateData = $request->validate([
             'name' => 'max:30|unique:categories,name',
         ], [
-            'name.max' => 'error name max',
-            'name.unique' => 'error name unique',
+            'name.max' => 'Kategori tidak lebih dari 30 karakter',
+            'name.unique' => 'Kategori sudah ada',
         ]);
         $validateData['created_by'] = 1;
         $validateData['edited_by'] = 1;
+        // $validateData['created_by'] = Auth::user()->id;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if (Category::create($validateData)) {
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('success', 'Data berhasil ditambahkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -73,15 +79,16 @@ class CategoryControllerResourece extends Controller
         $validateData = $request->validate([
             'name' => 'max:30|unique:categories,name,' . $category->id,
         ], [
-            'name.max' => 'error name max',
-            'name.unique' => 'error name unique',
+            'name.max' => 'Kategori tidak lebih dari 30 karakter',
+            'name.unique' => 'Kategori sudah ada',
         ]);
         $validateData['edited_by'] = 1;
+        // $validateData['edited_by'] = Auth::user()->id;
 
         if (Category::where('id', $category->id)->update($validateData)) {
-            return back();
+            return back()->with('success', 'Data berhasil diperbarui!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -91,12 +98,13 @@ class CategoryControllerResourece extends Controller
     {
         $data = [
             'edited_by' => 1,
+            // 'edited_by' => Auth::user()->id,
         ];
         Category::where('id', $id)->update($data);
         if (Category::destroy($id)) {
-            return redirect()->route('category.index');
+            return redirect()->route('category.index')->with('success', 'Data berhasil dihapus!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 
     /**
@@ -117,12 +125,13 @@ class CategoryControllerResourece extends Controller
     {
         $data = [
             'edited_by' => 1,
+            // 'edited_by' => Auth::user()->id,
         ];
         $category = Category::withTrashed()->find($request->id);
         $category->update($data);
         if ($category->restore()) {
-            return redirect()->route('category.trash');
+            return redirect()->route('category.trash')->with('success', 'Data berhasil dipulihkan!');
         }
-        return "error";
+        return back()->with('error', 'Terjadi kesalahan!');
     }
 }

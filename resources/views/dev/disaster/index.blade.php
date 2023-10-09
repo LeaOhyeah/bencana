@@ -1,25 +1,21 @@
-@extends('layouts.main')
+<!DOCTYPE html>
+<html>
 
-<script src="{{ asset('js/jquery.js') }}"></script>
-<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<head>
 
+</head>
 
-
-@section('container')
-<div class="container bg-background2">
-    <h1 class="text-3xl font-semibold pt-3 items-center">Disaster List</h1>
+<body>
+    <h1>Disaster</h1>
     <h2>
-        <a href="{{ route('disaster.create') }}" class="underline">Create
+        <a href="{{ route('disaster.create') }}">Create
         </a>
     </h2>
     <h2>
-        <a href="{{ route('dashboard') }}" class="underline">Back
+        <a href="{{ route('dashboard') }}">Back
         </a>
     </h2>
-    <input type="text" placeholder="Type here" class="mt-3 rounded-md w-full border-gray-300 shadow-sm focus:border-accent2 focus:ring focus:ring-accent2/50 focus:ring-opacity-50" />
-    <div class="mt-6 overflow x-auto  stripe hover w-full border">
-        
-    <table id="myDataTable" border="1" class="table table-zebra">
+    <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
@@ -57,85 +53,7 @@
             @endforeach
         </tbody>
     </table>
-    </div>
-</div>
-    <div class="drawer-side">
-        <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label> 
-        <ul class="menu p-2 w-80 min-h-full bg-primary2 font-semibold">
-          
-          <!-- Sidebar content here -->
-          <li class="py-8"><a class="text-xl" href="#">Dashboard</a></li>
-          <p class="text-sm px-4">Navigation</p>
-          <li class="mt-2">
-          <details close>
-            <summary>User</summary>
-             <ul>
-                <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Dev User</a></li>
-                <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Trash User</a></li>
-              </ul>
-            </details>
-          </li>
 
-            <li class="mt-3">
-              <details close>
-              <summary>Disaster</summary>
-               <ul>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Dev Disaster</a></li>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Trash Disaster</a></li>
-                </ul>
-              </details>
-            </li>
+</body>
 
-            <li class="mt-3">
-              <details close>
-              <summary>Post</summary>
-               <ul>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Dev Post</a></li>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Trash Post</a></li>
-                </ul>
-              </details>
-            </li>
-
-            <li class="mt-3">
-              <details close>
-              <summary>Request</summary>
-               <ul>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Dev Post</a></li>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Trash Post</a></li>
-                </ul>
-              </details>
-            </li>
-
-            <li class="mt-3">
-              <details close>
-              <summary>Aid</summary>
-               <ul>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Dev Aid</a></li>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Trash Aid</a></li>
-                </ul>
-              </details>
-            </li>
-
-            <li class="mt-3">
-              <details close>
-              <summary>Category</summary>
-               <ul>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Dev Category</a></li>
-                  <li class="hover:bg-secondary2 hover:text-main rounded-md"><a href="#">Trash Category</a></li>
-                </ul>
-              </details>
-            </li>
-            
-        </ul>
-      </div>
-      </div>
-
-
-    <script>
-    $(document).ready(function() {
-        $('#myDataTable').DataTable({
-            // DataTables options and configuration here
-        });
-    });
-    </script>
-@endsection
+</html>

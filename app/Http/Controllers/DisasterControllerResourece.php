@@ -19,8 +19,6 @@ class DisasterControllerResourece extends Controller
         $data = [
             'disasters' => Disaster::with(['edited_log', 'created_log'])->orderBy('created_at', 'ASC')->get(),
         ];
-        $test = Disaster::find(1);
-        dd($test->created_at_formated());
         return view('dev.disaster.index', $data);
     }
 
@@ -54,8 +52,8 @@ class DisasterControllerResourece extends Controller
             'start_date.date' => 'Tanggal dimulai tidak valid',
             'end_date.date' => 'Tanggal selesai tidak valid',
             'closed_date.date' => 'Tanggal ditutup tidak valid',
-            'lat.required' => 'Garis lintang tidak valid',
-            'long.required' => 'Garis bujur tidak valid',
+            'lat.required' => 'Lokasi belum dipilih',
+            // 'long.required' => 'Garis bujur tidak valid',
         ]);
         $validateData['created_by'] = 1;
         $validateData['edited_by'] = 1;

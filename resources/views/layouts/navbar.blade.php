@@ -1,34 +1,37 @@
-<!-- Navbar -->
-<nav class="w-full navbar bg-background2">
-    <div class="flex-none">
-      <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost md:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-      </label>
-    </div> 
-    <div class="flex-1 px-2 mx-2 font-semibold">Bencana</div>
-    <div class="flex-none hidden lg:block">
-        
-      <ul class="menu menu-horizontal">
-        <!-- Menu Navbar -->
-        <li><a>Navbar Item 1</a></li>
-        <li><a>Navbar Item 2</a></li>
+
+<!-- <nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
       </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
-    <!-- Profile -->
-    <div class="dropdown dropdown-end">
-        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-          <div class="w-10 rounded-full">
-            <img src="https://media.istockphoto.com/id/1386479313/photo/happy-millennial-afro-american-business-woman-posing-isolated-on-white.jpg?s=612x612&w=0&k=20&c=8ssXDNTp1XAPan8Bg6mJRwG7EXHshFO5o0v9SIj96nY=" />
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-5 z-[1] p-2 shadow bg-secondary2 text-main rounded-box w-52">
-                <li>
-                  <a class="justify-between  hover:text-main/50">
-                    Profile
-                    <span class="badge bg-accent2">Admin</span>
-                  </a>
-                </li>
-                    <li><a class="hover:text-main/10">Settings</a></li>
-                    <li><a class="hover:text-main/10">Logout</a></li>
-            </ul>
-    </div>
-</nav>
-<!-- End of navbar -->
+  </div>
+</nav> -->

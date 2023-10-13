@@ -26,7 +26,7 @@ trait EditedLog
       * Summary of updated_at_formated
       * @return string updated_at atribute
       */
-     public function updated_at_formated()
+     public function updated_at()
      {
           if ($this->updated_at == null) {
                return "";
@@ -38,7 +38,7 @@ trait EditedLog
       * Summary of deleted_at_formated
       * @return string deleted_at atribute
       */
-     public function deleted_at_formated()
+     public function deleted_at()
      {
           if ($this->deleted_at == null) {
                return "";

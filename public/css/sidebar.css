@@ -1,0 +1,308 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;wght@500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap'); */
+
+/* 
+________________________________________________________________
+                    DASHBOARD STYLE CSS 
+________________________________________________________________
+*/
+
+:root {
+    --mainColor: #4AA1FE;
+    --secondaryColor: #73CBF8;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.bg-secondary-2 {
+    background-color: var(--secondaryColor) !important;
+}
+
+/* Sidebar */
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: var(--mainColor);
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+}
+
+#sidebar .sidebar-header a {
+    font-size: 30px;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 2px solid white;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* Sidebar Mobile CSS` */
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+        z-index: 9999;
+        position: fixed;
+        height: 100vh;
+    }
+
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+.class-header {
+    border-radius: 10px 10px 70px 0px !important;
+    background-color: var(--secondaryColor) !important;
+    height: 130px;
+}
+
+.class-card {
+    border-radius: 10px !important;
+}
+
+.class-card .card-footer {
+    background-color: transparent !important;
+    border-top: none;
+}
+
+.class-card h4 {
+    font-family: 'Mulish', sans-serif !important;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 23px;
+    /* line-height: 20px; */
+}
+
+.class-card span {
+    background-color: #46A6DC;
+}
+
+.card-view-class {
+    border-radius: 16px !important;
+}
+
+.card-view-class .card-header {
+    border-radius: 16px 16px 150px 0px !important;
+    background-color: var(--secondaryColor) !important;
+    height: 130px;
+}
+
+.list-task {
+    /* background: #D9D9D9 !important; */
+    border-radius: 1px 100px 100px 1px !important;
+    height: 80px;
+}
+
+.list-task:hover {
+    background-color: var(--secondaryColor) !important;
+    color: white !important;
+    transition: .5s;
+}
+
+.task-icon {
+    background-color: var(--secondaryColor);
+    width: 50px;
+    height: 50px;
+}
+
+.task-title {
+    line-height: 2px;
+}
+
+.task-title h5 {
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.task-title p {
+    font-family: 'Mulish', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+}
+
+.comment-form {
+    width: 250px !important;
+}
+
+.comment-form input {
+    background-color: #D9D9D9 !important;
+}
+
+.submit-comment {
+    margin-left: -50px !important;
+    z-index: 2;
+}
+
+.btn-primary {
+    background-color: var(--mainColor) !important;
+}
+
+#filter {
+    background-color: #F6F6F6;
+    width: 250px !important;
+}
+
+.accordion-button {
+    background-color: var(--secondaryColor) !important;
+    color: white !important;
+}
+
+table.dataTable thead th, table.dataTable thead td, table.dataTable tfoot th, table.dataTable tfoot td {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+table.dataTable tbody tr {
+    vertical-align: middle !important;
+}
+
+.paginate_button {
+    background-color: var(--secondaryColor) !important;
+    color: #fff !important;
+    font-weight: 700 !important;
+    border-radius: 10px !important;
+    margin-top: 20px !important;
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+}
+
+.paginate_button:active, .paginate_button:hover, .paginate_button {
+    border: none !important;
+}
+
+.dataTables_filter {
+    margin-bottom: 40px !important;
+}
+
+.dataTables_filter input {
+    border-radius: 10px !important;
+}
+
+
+.dataTables_filter {
+    margin-right: 10px !important;
+    margin-top: 5px !important;
+}
+
+.dataTables_filter label {
+    font-weight: 700;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    /* display: inline-block; */
+    font-size: 1rem;
+    color: #212529;
+    margin-left: 15px !important;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+table.dataTable a.btn {
+    font-size: 19px !important;
+    width: 45px !important;
+    height: auto;
+}
+
+
+.dataTables_length select {
+    width: 90px;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .comment-form {
+        width: 100% !important;
+    }
+
+    .task-title h5 {
+        font-size: 17px !important;
+    }
+
+    .task-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .list-task {
+        height: auto !important;
+        padding-bottom: 20px;
+    }
+}
+
+
+.nav-link {
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+}

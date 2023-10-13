@@ -24,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('homepage.home');
 // })->name('home');
 
+Route::get('/coba', function () {
+    return view('layouts.main2');
+});
+
 // homepage
 Route::get('/dashboard', [HomepageController::class, 'dashboard'])->name('dashboard');
 Route::get('/home', [HomepageController::class, 'index'])->name('home');

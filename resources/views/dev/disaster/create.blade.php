@@ -1,4 +1,5 @@
-@extends('layouts.main')
+@extends('layouts.main2')
+@section('title', 'Tambah Data')
 
 @section('css')
     {{-- leafet css --}}
@@ -7,104 +8,129 @@
     <style>
         #map {
             height: 400px;
-            width: 400px;
-            /* margin-left: 2cm; */
         }
 
-        @media (min-width: 1024px) {
-            #map {
-                width: 600px !important;
-                /* Lebar untuk layar desktop */
+        .floating-button {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            z-index: 999;
+        }
+
+        .custom-textarea {
+            width: 100%;
+            height: 100px !important;
+            resize: vertical;
+        }
+
+        @media screen and (max-width: 600px) {
+            .custom-textarea {
+                width: 100%;
+                height: 180px !important;
             }
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 @endsection
 
-<!-- Main -->
-@section('container')
-    <h1>Create Disaster</h1>
-    <div>
-        <ul>
-            <li><a>Disaster</a></li>
-            <li><a>Dev Disaster</a></li>
-            <li>Add Disaster</li>
-        </ul>
-    </div>
-    <div>
-
+@section('content')
+    @if (session()->has('error'))
+        <div class="alert alert-default-danger" role="alert">
+            <b>
+                {{ session('error') }}
+            </b>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Data Bencana</h3>
+        </div>
         <form method="POST" action="{{ route('disaster.store') }}">
             @csrf
-            <label for="code">Code</label>
-            @error('code')
-                {{ $message }}
-            @enderror
-            <input type="text" id="code" name="code" placeholder="Type here" required>
-
-            <label for="name">Name</label>
-            @error('name')
-                {{ $message }}
-            @enderror
-            <input type="text" id="name" name="name" placeholder="Type here" required><br>
-            <br>
-
-            <label for="description">Description</label>
-            @error('description')
-                {{ $message }}
-            @enderror
-            <textarea name="description" id="description" cols="30" rows="10" placeholder="Enter description (optional)"></textarea><br>
-            <br>
-
-            <label for="start_date">Start Date</label>
-            @error('start_date')
-                {{ $message }}
-            @enderror
-            <input type="date" id="start_date" name="start_date" required><br>
-
-            <label for="end_date">End Date</label>
-            @error('end_date')
-                {{ $message }}
-            @enderror
-            <input type="date" id="end_date" name="end_date"><br>
-
-            <label for="closed_date">Closed Date</label>
-            @error('closed_date')
-                {{ $message }}
-            @enderror
-            <input type="date" id="closed_date" name="closed_date">
-
-            <div id="map"></div>
-            <button id="myLocation" type="button">Use My Location</button>
-
-            <label for="lat">Lat</label>
-            @error('lat')
-                {{ $message }}
-            @enderror
-            <input type="hidden" id="lat" name="lat" placeholder="Enter Latitude" required><br>
-            <br>
-
-            <label for="long">Long</label>
-            @error('long')
-                {{ $message }}
-            @enderror
-            <input type="hidden" id="long" name="long" placeholder="Enter Longitude" required><br>
-            <br>
-
-            <button type="submit">
-                Save Data
-            </button>
-
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="row mx-1">
+                        <div class="col-lg-5 col-12 mb-3">
+                            <label for="code">Kode</label>
+                            <input type="text" class="form-control @error('code') is-invalid @enderror" id="code"
+                                name="code" placeholder="Masukkan Kode Bencana" required autofocus
+                                value="{{ old('code') }}">
+                            @error('code')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-5 col-12 mb-3">
+                            <label for="name">Nama</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                name="name" placeholder="Masukkan Nama Bencana" required value="{{ old('name') }}">
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-lg-2 col-12 mb-3">
+                            <label for="start_date">Tanggal Mulai</label>
+                            <input type="date" class="form-control @error('start_date') is-invalid @enderror"
+                                id="start_date" name="start_date" required value="{{ old('start_date') }}">
+                            @error('start_date')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="description">Deskripsi</label>
+                            <textarea class="form-control custom-textarea @error('description') is-invalid @enderror" id="description"
+                                name="description" placeholder="Masukkan Deskripsi">{{old('description')}}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="map">Pilih Lokasi Pusat</label>
+                            <div class="text-danger mb-1">
+                                @error('lat')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                            <div class="form-control rounded" id="map"><button
+                                    class="btn btn-info border-dark floating-button" id="myLocation" type="button">Lokasi
+                                    Saya</button></div>
+                        </div>
+                        {{-- end date --}}
+                        {{-- close date --}}
+                        <input type="hidden" id="lat" name="lat" placeholder="Enter Latitude">
+                        <input type="hidden" id="long" name="long" placeholder="Enter Longitude">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer mx-3 mb-3">
+                <button type="submit" class="btn btn-primary">
+                    Simpan Data
+                </button>
+                <a class="btn btn-outline-primary float-right" href="{{ route('disaster.index') }}">
+                    <div class="text-primary">Batal</div>
+                </a>
+            </div>
         </form>
-    </div>
+
+        <!-- /.card-body -->
     </div>
 @endsection
 
-@push('js')
+@push('scripts')
     {{-- leafet js --}}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
 
     {{-- jquery --}}
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -122,7 +148,7 @@
             });
         var map = L.map('map', {
             layers: [OpenStreet],
-        }).setView([-0.79021988479697, 118.92346179551438], 4); // tenah indonesia
+        }).setView([-0.79021988479697, 118.92346179551438], 4); // tengah indonesia
         var baseMap = {
             'Terang': OpenStreet,
             'Gelap': Stadia_AlidadeSmoothDark,
@@ -164,7 +190,7 @@
 
         // inisialisasi geocoder
         var geocoder = L.Control.geocoder({
-            defaultMarkGeocode: false, // Tidak otomatis menandai hasil geocode
+            defaultMarkGeocode: false,
         }).addTo(map);
         // end inisialisasi geocoder
 

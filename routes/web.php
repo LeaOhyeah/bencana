@@ -41,7 +41,8 @@ Route::get('/getdata', [HomepageController::class, 'getData'])->name('getdata');
 Route::resource('user', UserControllerResourece::class);
 Route::get('user/other/trash', [UserControllerResourece::class, 'trash'])->name('user.trash');
 Route::post('user/other/restore', [UserControllerResourece::class, 'restore'])->name('user.restore');
-Route::get('user/del-id-card/{id}', [UserControllerResourece::class, 'destroyIdCard'])->name('user.del-id-card');
+Route::get('user/other/request', [UserControllerResourece::class, 'request'])->name('user.request');
+Route::get('user/validated/{id}', [UserControllerResourece::class, 'validatedUser'])->name('user.validated');
 Route::get('user/del-pp/{id}', [UserControllerResourece::class, 'destroyPP'])->name('user.del-pp');
 
 // manager table disaster as developer

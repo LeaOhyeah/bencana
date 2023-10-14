@@ -206,14 +206,26 @@ class UserControllerResourece extends Controller
     }
 
     /**
+     * Display a listing of unvalidated users
+     */
+    public function request()
+    {
+        $data = [
+            'users' => User::where('is_verified', false)->get(),
+        ];
+        dd($data);
+    }
+
+    /**
      * Delete a identity card (image) from storage
      */
-    public function destroyIdCard($id)
+    public function validatedUser($id)
     {
         $user = User::find($id);
         Storage::delete($user['identity_card']);
         User::where('id', $user->id)->update([
             'identity_card' => null,
+            'is_verified' => true,
         ]);
         return back()->with('success', 'Kartu identitas berhasil dihapus!');
     }
